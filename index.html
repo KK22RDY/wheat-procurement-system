@@ -394,7 +394,6 @@ cursor:pointer;
                 quantity: inputs[4].value
             };
 
-            // Check duplicate ID
             let exists = farmers.find(f => f.id === farmer.id);
             if (exists) {
                 document.getElementById("regMsg").innerHTML = "Farmer ID already exists!";
