@@ -1,0 +1,147 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI;
+}
+
+body{
+background:#f5f7fa;
+}
+
+/* WELCOME */
+#welcome{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:#111827;
+color:white;
+text-align:center;
+}
+
+#welcome button{
+margin-top:20px;
+padding:12px 25px;
+border:none;
+background:#2563eb;
+color:white;
+border-radius:8px;
+cursor:pointer;
+}
+
+/* SIDEBAR */
+.sidebar{
+width:220px;
+height:100vh;
+background:#111827;
+color:white;
+position:fixed;
+display:none;
+padding:20px;
+}
+
+.sidebar button{
+width:100%;
+margin:10px 0;
+padding:10px;
+border:none;
+background:#1f2937;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* MAIN */
+.main{
+margin-left:220px;
+padding:20px;
+display:none;
+}
+
+.page{
+display:none;
+}
+
+/* CARDS */
+.cards{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.card{
+flex:1;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 6px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+/* FORM */
+input{
+padding:10px;
+margin:10px;
+width:200px;
+border:1px solid #ddd;
+border-radius:6px;
+}
+
+button{
+padding:10px 20px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* TABLE */
+table{
+width:100%;
+background:white;
+border-radius:10px;
+overflow:hidden;
+margin-top:20px;
+}
+
+th,td{
+padding:12px;
+text-align:center;
+}
+
+th{
+background:#2563eb;
+color:white;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+.sidebar{
+width:100%;
+height:auto;
+position:relative;
+}
+
+.main{
+margin-left:0;
+}
+
+.cards{
+flex-direction:column;
+}
+
+input{
+width:90%;
+}
+#loginPage input{
+margin:10px;
+padding:10px;
+border-radius:6px;
+border:none;
+width:200px;
+}
+}
