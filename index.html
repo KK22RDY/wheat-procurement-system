@@ -186,7 +186,7 @@
                 <option value="12 PM">12 PM</option>
                 <option value="2 PM">2 PM</option>
                 <option value="4 PM">4 PM</option>
-            </select> 
+            </select>
             <br>
             <button class="action" onclick="bookSlot()">Book</button>
             <p id="slotMsg"></p>
@@ -220,6 +220,45 @@
             document.getElementById("mainUI").style.display = "block";
             showPage("dashboard");
         }
+        let chart;
+
+        function initChart() {
+
+            let ctx = document.getElementById("wheatChart");
+
+            chart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: "Wheat Quantity",
+                        data: []
+                    }]
+                }
+            });
+        }
+        function updateChart(){
+
+    let labels = [];
+    let data = [];
+
+    slots.forEach((s, i)=>{
+        let farmer = farmers.find(f => f.id === s.farmerId);
+
+        if(farmer){
+            labels.push(farmer.name);
+            data.push(Number(farmer.quantity || 0));
+        }
+    });
+
+    console.log("Labels:", labels);
+    console.log("Data:", data);
+
+    chart.data.labels = labels;
+    chart.data.datasets[0].data = data;
+
+    chart.update();
+}
 
         // LOGIN
         function loginAdmin() {
@@ -256,6 +295,7 @@
             i.forEach(x => x.value = "");
             regMsg.innerHTML = "Registered";
             renderFarmers(); updateDashboard();
+            updateChart();
         }
 
         function renderFarmers() {
@@ -278,7 +318,8 @@
             }; slots.push(s);
             localStorage.setItem("slots", JSON.stringify(slots));
             slotMsg.innerHTML = "Booked";
-            renderSlots(); updateDashboard();
+            renderSlots(); updateDashboard();updateChart();
+
         }
 
         // PROCUREMENT
@@ -301,7 +342,8 @@
             slots[i].status = "Received";
             slots[i].payment = "Processing";
             localStorage.setItem("slots", JSON.stringify(slots));
-            renderSlots(); updateDashboard();
+            renderSlots(); updateDashboard();updateChart();
+
         }
 
         // PAYMENT
@@ -348,6 +390,8 @@
             localStorage.setItem("slots", JSON.stringify(slots));
             checkPayment();
             updateDashboard();
+            updateChart();
+
         }
 
         // DASHBOARD
@@ -361,15 +405,15 @@
         window.onload = function () {
             renderFarmers();
             renderSlots();
-            checkPayment(); // ✅ important fix
+            checkPayment();
             updateDashboard();
+
+            initChart();   // create chart
+            updateChart(); // fill data
         }
 
         // CHART
-        new Chart(document.getElementById("wheatChart"), {
-            type: "bar",
-            data: { labels: ["Mon", "Tue"], datasets: [{ data: [10, 20] }] }
-        });
+        
 
     </script>
 
