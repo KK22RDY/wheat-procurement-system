@@ -110,443 +110,211 @@
 </head>
 
 <body>
-    <div id="welcomeScreen" style="
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-background:#1e3a5f;
-color:white;
-">
 
-        <h1 style="font-size:40px;margin-bottom:10px;">🌾 Smart Wheat Procurement System</h1>
-        <p style="margin-bottom:30px;">Efficient • Transparent • Digital</p>
-
-        <button onclick="startApp()" style="
-padding:15px 30px;
-font-size:18px;
-background:#2f5d91;
-border:none;
-color:white;
-border-radius:8px;
-cursor:pointer;
-">
-            Get Started
-        </button>
-
+    <!-- ✅ WELCOME SCREEN -->
+    <div id="welcomeScreen"
+        style="height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:#1e3a5f;color:white;">
+        <h1>🌾 Smart Wheat Procurement System</h1>
+        <button onclick="startApp()"
+            style="padding:15px 30px;font-size:18px;background:#2f5d91;border:none;color:white;border-radius:8px;">Get
+            Started</button>
     </div>
 
-<div class="sidebar" id="appUI" style="display:none;">
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="appUI" style="display:none;">
         <h2>🌾 Wheat System</h2>
-
         <button onclick="showPage('dashboard')">Dashboard</button>
         <button onclick="showPage('farmer')">Farmer Registration</button>
         <button onclick="showPage('slot')">Slot Booking</button>
         <button onclick="showPage('center')">Procurement Center</button>
         <button onclick="showPage('payment')">Payments</button>
-
     </div>
 
+    <!-- MAIN -->
+    <div class="main" id="mainUI" style="display:none;">
 
-<div class="main" id="mainUI" style="display:none;">
         <!-- DASHBOARD -->
-
         <div id="dashboard" class="page">
-
             <h1>Admin Dashboard</h1>
-
             <div class="cards">
-
                 <div class="card">
                     <h3>Total Farmers</h3>
-                    <h2>120</h2>
+                    <h2>0</h2>
                 </div>
-
                 <div class="card">
                     <h3>Wheat Collected</h3>
-                    <h2>350 Tons</h2>
+                    <h2>0 Tons</h2>
                 </div>
-
                 <div class="card">
                     <h3>Pending Payments</h3>
-                    <h2>25</h2>
+                    <h2>0</h2>
                 </div>
-
-                <div class="card">
-                    <h3>Active Centers</h3>
-                    <h2>8</h2>
-                </div>
-
             </div>
-
-            <canvas id="wheatChart" height="100"></canvas>
-
+            <canvas id="wheatChart"></canvas>
         </div>
-
 
         <!-- FARMER -->
-
         <div id="farmer" class="page">
-
             <h1>Farmer Registration</h1>
-
-            <input type="text" placeholder="Farmer Name"><br>
-            <input type="text" placeholder="Farmer ID"><br>
-            <input type="text" placeholder="Mobile Number"><br>
+            <input type="text" placeholder="Name"><br>
+            <input type="text" placeholder="ID"><br>
+            <input type="text" placeholder="Mobile"><br>
             <input type="text" placeholder="Village"><br>
-            <input type="number" placeholder="Wheat Quantity (Quintals)"><br>
-
-            <button class="action" onclick="registerFarmer()">Register Farmer</button>
-
+            <input type="number" placeholder="Quantity"><br>
+            <br>
+            <button class="action" onclick="registerFarmer()">Register</button>
             <p id="regMsg"></p>
-
+            <div id="farmerTable"></div>
         </div>
 
-
-        <!-- SLOT BOOKING -->
-
+        <!-- SLOT -->
         <div id="slot" class="page">
+            <h1>Slot Booking</h1>
+            <select id="bookingCenter">
+                <option value="">Select Center</option>
+                <option value="Center A">Center A</option>
+                <option value="Center B">Center B</option>
+                <option value="Center C">Center C</option>
+                <option value="Center D">Center D</option>
+                <option value="Center E">Center E</option>
+            </select>
+            <input type="date">
 
-            <h1>Book Procurement Slot</h1>
-
-            <select>
-                <option>Select Center</option>
-                <option>Center A</option>
-                <option>Center B</option>
-            </select><br>
-
-            <input type="date"><br>
-
-            <select>
-                <option>10:00 AM</option>
-                <option>11:00 AM</option>
-                <option>12:00 PM</option>
-            </select><br>
-
-            <button class="action" onclick="bookSlot()">Book Slot</button>
-
+            <select id="slotTime">
+                <option value="">Select Time</option>
+                <option value="10 AM">10 AM</option>
+                <option value="12 PM">12 PM</option>
+                <option value="2 PM">2 PM</option>
+                <option value="4 PM">4 PM</option>
+            </select> 
+            <br>
+            <button class="action" onclick="bookSlot()">Book</button>
             <p id="slotMsg"></p>
-
         </div>
 
-
-        <!-- PROCUREMENT -->
-
+        <!-- CENTER -->
         <div id="center" class="page">
-
-            <h1>Procurement Center Dashboard</h1>
-
-            <table>
-
-                <tr>
-                    <th>Farmer</th>
-                    <th>Quantity</th>
-                    <th>Slot</th>
-                    <th>Status</th>
-                </tr>
-
-                <tr>
-                    <td>Ramesh</td>
-                    <td>15 Quintals</td>
-                    <td>10:00 AM</td>
-                    <td id="status1">Pending</td>
-                </tr>
-
-                <tr>
-                    <td>Suresh</td>
-                    <td>12 Quintals</td>
-                    <td>11:00 AM</td>
-                    <td>Received</td>
-                </tr>
-
-            </table>
-
-            <br>
-
-            <button class="action" onclick="updateStatus()">Mark as Received</button>
-
+            <h1>Procurement</h1>
+            <table></table>
         </div>
 
-
-        <!-- PAYMENTS -->
-
+        <!-- PAYMENT -->
         <div id="payment" class="page">
-
-            <h1>Payment Status</h1>
-
-            <table>
-
-                <tr>
-                    <th>Farmer</th>
-                    <th>Quantity</th>
-                    <th>Status</th>
-                </tr>
-
-                <tr>
-                    <td>Ramesh</td>
-                    <td>15 Quintals</td>
-                    <td>Processing</td>
-                </tr>
-
-                <tr>
-                    <td>Suresh</td>
-                    <td>12 Quintals</td>
-                    <td>Paid</td>
-                </tr>
-
-            </table>
-
-            <br>
-
-            <button class="action" onclick="checkPayment()">Check Payment</button>
-
-            <p id="payMsg"></p>
-
+            <h1>Payments</h1>
+            <table></table>
         </div>
 
     </div>
 
-
-
     <script>
-        function startApp(){
 
-    document.getElementById("welcomeScreen").style.display = "none";
-
-    document.getElementById("appUI").style.display = "block";
-    document.getElementById("mainUI").style.display = "block";
-
-    showPage("dashboard");
-}
-
-        // ---------------- LOGIN SYSTEM ----------------
-
+        // DATA
+        let farmers = JSON.parse(localStorage.getItem("farmers")) || [];
+        let slots = JSON.parse(localStorage.getItem("slots")) || [];
         let isAdmin = false;
 
-        function loginAdmin() {
-            let user = prompt("Enter Admin Username:");
-            let pass = prompt("Enter Password:");
-
-            if (user === "admin" && pass === "1234") {
-                isAdmin = true;
-                alert("Login Successful");
-            } else {
-                alert("Invalid Credentials");
-            }
+        // START
+        function startApp() {
+            document.getElementById("welcomeScreen").style.display = "none";
+            document.getElementById("appUI").style.display = "block";
+            document.getElementById("mainUI").style.display = "block";
+            showPage("dashboard");
         }
 
-        // Protect pages
+        // LOGIN
+        function loginAdmin() {
+            let u = prompt("Admin username:");
+            let p = prompt("Password:");
+            if (u === "admin" && p === "1234") { isAdmin = true; }
+            else alert("Wrong login");
+        }
+
+        // NAV
         function showPage(page) {
 
             if ((page === "slot" || page === "center" || page === "payment") && !isAdmin) {
-                alert("Admin Login Required");
                 loginAdmin();
                 if (!isAdmin) return;
             }
 
-            let pages = document.getElementsByClassName("page");
-
-            for (let i = 0; i < pages.length; i++) {
-                pages[i].style.display = "none";
-            }
-
+            document.querySelectorAll(".page").forEach(p => p.style.display = "none");
             document.getElementById(page).style.display = "block";
-        }
 
-        function updateDashboard() {
-
-            let totalFarmers = farmers.length;
-
-            let totalWheat = farmers.reduce((sum, f) => sum + Number(f.quantity || 0), 0);
-
-            // ✅ Pending payments logic
-            let pending = slots.filter(s => s.payment !== "Paid").length;
-
-            let cards = document.querySelectorAll(".card h2");
-
-            cards[0].innerText = totalFarmers;
-            cards[1].innerText = totalWheat + " Tons";
-            cards[2].innerText = pending; // 🔥 updated here
-        }
-        window.onload = function () {
-            renderFarmers();
-            renderSlots();
-            updateDashboard();
-        }
-        // ---------------- STORAGE ----------------
-
-        let farmers = JSON.parse(localStorage.getItem("farmers")) || [];
-        let slots = JSON.parse(localStorage.getItem("slots")) || [];
-
-
-        // ---------------- FARMER REGISTRATION ----------------
-
-        function registerFarmer() {
-
-            let inputs = document.querySelectorAll("#farmer input");
-
-            let farmer = {
-                name: inputs[0].value,
-                id: inputs[1].value,
-                mobile: inputs[2].value,
-                village: inputs[3].value,
-                quantity: inputs[4].value
-            };
-
-            let exists = farmers.find(f => f.id === farmer.id);
-            if (exists) {
-                document.getElementById("regMsg").innerHTML = "Farmer ID already exists!";
-                return;
+            // 🔥 ADD THIS
+            if (page === "payment") {
+                checkPayment();
             }
-
-            farmers.push(farmer);
-            localStorage.setItem("farmers", JSON.stringify(farmers));
-
-            document.getElementById("regMsg").innerHTML = "Farmer Registered Successfully";
-
-            renderFarmers();
-            updateDashboard();
         }
 
-
-        // ---------------- RENDER FARMERS ----------------
+        // FARMER
+        function registerFarmer() {
+            let i = document.querySelectorAll("#farmer input");
+            let f = { name: i[0].value, id: i[1].value, village: i[3].value, quantity: i[4].value };
+            if (farmers.find(x => x.id === f.id)) { regMsg.innerHTML = "Duplicate ID"; return; }
+            farmers.push(f);
+            localStorage.setItem("farmers", JSON.stringify(farmers));
+            i.forEach(x => x.value = "");
+            regMsg.innerHTML = "Registered";
+            renderFarmers(); updateDashboard();
+        }
 
         function renderFarmers() {
-
-            let tableHTML = `
-    <table>
-    <tr>
-        <th>Name</th>
-        <th>ID</th>
-        <th>Village</th>
-        <th>Quantity</th>
-    </tr>
-    `;
-
-            farmers.forEach(f => {
-                tableHTML += `
-        <tr>
-            <td>${f.name}</td>
-            <td>${f.id}</td>
-            <td>${f.village}</td>
-            <td>${f.quantity}</td>
-        </tr>
-        `;
-            });
-
-            tableHTML += `</table>`;
-
-            // 👉 IMPORTANT: Replace instead of append
-            let oldTable = document.getElementById("farmerTable");
-            if (oldTable) {
-                oldTable.innerHTML = tableHTML;
-            } else {
-                let div = document.createElement("div");
-                div.id = "farmerTable";
-                div.innerHTML = tableHTML;
-                document.getElementById("farmer").appendChild(div);
-            }
+            let html = "<table><tr><th>Name</th><th>ID</th><th>Village</th><th>Qty</th></tr>";
+            farmers.forEach(f => html += `<tr><td>${f.name}</td><td>${f.id}</td><td>${f.village}</td><td>${f.quantity}</td></tr>`);
+            html += "</table>";
+            farmerTable.innerHTML = html;
         }
 
-
-        // ---------------- SLOT BOOKING ----------------
-
+        // SLOT
         function bookSlot() {
+            if (farmers.length === 0) { slotMsg.innerHTML = "Register first"; return; }
+            let selectedTime = document.getElementById("slotTime").value;
 
-            let selects = document.querySelectorAll("#slot select");
-            let date = document.querySelector("#slot input").value;
-
-            if (farmers.length === 0) {
-                document.getElementById("slotMsg").innerHTML = "Register farmer first!";
-                return;
-            }
-
-            // Assign slot to next farmer (simple logic)
-            let farmerIndex = slots.length;
-
-            let slot = {
-                farmerId: farmers[farmerIndex].id,
-                center: selects[0].value,
-                time: selects[1].value,
-                date: date,
+            let s = {
+                farmerId: farmers[slots.length].id,
+                time: selectedTime,
                 status: "Scheduled",
                 payment: "Pending"
-            };
-
-            slots.push(slot);
+            }; slots.push(s);
             localStorage.setItem("slots", JSON.stringify(slots));
-
-            document.getElementById("slotMsg").innerHTML = "Slot Booked Successfully";
-
-            renderSlots();
-            updateDashboard();
+            slotMsg.innerHTML = "Booked";
+            renderSlots(); updateDashboard();
         }
 
-        // ---------------- RENDER PROCUREMENT ----------------
-
+        // PROCUREMENT
         function renderSlots() {
-
-            let table = `
-    <tr>
-    <th>Farmer</th>
-    <th>Quantity</th>
-    <th>Slot</th>
-    <th>Status</th>
-    <th>Action</th>
-    </tr>
-    `;
-
+            let html = "<tr><th>Name</th><th>Qty</th><th>Slot</th><th>Status</th><th>Action</th></tr>";
             slots.forEach((s, i) => {
-
-                let farmer = farmers.find(f => f.id === s.farmerId);
-
-                table += `
-        <tr>
-        <td>${farmer ? farmer.name : "-"}</td>
-        <td>${farmer ? farmer.quantity : "-"}</td>
-        <td>${s.time}</td>
-        <td>${s.status}</td>
-        <td>
-            ${s.status === "Scheduled"
-                        ? `<button class="action" onclick="markReceived(${i})">Mark Received</button>`
-                        : "Done"
-                    }
-        </td>
-        </tr>
-        `;
+                let f = farmers.find(x => x.id === s.farmerId);
+                html += `<tr>
+<td>${f.name}</td>
+<td>${f.quantity}</td>
+<td>${s.time}</td>
+<td>${s.status}</td>
+<td>${s.status === "Scheduled" ? `<button onclick="markReceived(${i})">Receive</button>` : "Done"}</td>
+</tr>`;
             });
-
-            document.querySelector("#center table").innerHTML = table;
+            document.querySelector("#center table").innerHTML = html;
         }
 
-
-        // ---------------- STATUS UPDATE ----------------
-
-        function updateStatus() {
-
-            slots.forEach((s, i) => {
-                s.status = "Received";
-                s.payment = "Processing";
-            });
-
+        function markReceived(i) {
+            slots[i].status = "Received";
+            slots[i].payment = "Processing";
             localStorage.setItem("slots", JSON.stringify(slots));
-
-            renderSlots();
-            updateDashboard();
-
-            alert("All farmers marked as received → Payment Processing started");
+            renderSlots(); updateDashboard();
         }
 
-
-        // ---------------- PAYMENT ----------------
-
+        // PAYMENT
         function checkPayment() {
 
-            let table = `
+            let table = document.querySelector("#payment table");
+
+            if (!table) return;
+
+            let html = `
     <tr>
-    <th>Farmer</th>
-    <th>Quantity</th>
+    <th>Name</th>
+    <th>Qty</th>
     <th>Status</th>
     <th>Action</th>
     </tr>
@@ -554,66 +322,54 @@ cursor:pointer;
 
             slots.forEach((s, i) => {
 
-                let farmer = farmers.find(f => f.id === s.farmerId);
+                let f = farmers.find(x => x.id === s.farmerId);
 
-                table += `
+                html += `
         <tr>
-        <td>${farmer ? farmer.name : "-"}</td>
-        <td>${farmer ? farmer.quantity : "-"}</td>
+        <td>${f ? f.name : "-"}</td>
+        <td>${f ? f.quantity : "-"}</td>
         <td>${s.payment}</td>
         <td>
             ${s.payment === "Processing"
                         ? `<button class="action" onclick="markPaid(${i})">Mark Paid</button>`
-                        : "—"
+                        : (s.payment === "Paid" ? "Paid" : "-")
                     }
         </td>
         </tr>
         `;
             });
 
-            document.querySelector("#payment table").innerHTML = table;
-
-            document.getElementById("payMsg").innerHTML = "Payment Status Loaded";
-            function markReceived(index) {
-
-                slots[index].status = "Received";
-                slots[index].payment = "Processing";
-
-                localStorage.setItem("slots", JSON.stringify(slots));
-
-                renderSlots();
-                updateDashboard();
-            }
-            function markPaid(index) {
-
-                slots[index].payment = "Paid";
-
-                localStorage.setItem("slots", JSON.stringify(slots));
-
-                checkPayment(); // refresh table
-                updateDashboard();
-            }
+            table.innerHTML = html;
         }
-        // ---------------- CHART ----------------
 
-        let ctx = document.getElementById('wheatChart');
+        // ✅ FIXED BUTTON ISSUE
+        function markPaid(i) {
+            slots[i].payment = "Paid";
+            localStorage.setItem("slots", JSON.stringify(slots));
+            checkPayment();
+            updateDashboard();
+        }
 
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-                datasets: [{
-                    label: 'Expected Wheat Arrival (Tons)',
-                    data: [30, 45, 60, 40, 70]
-                }]
-            }
+        // DASHBOARD
+        function updateDashboard() {
+            document.querySelectorAll(".card h2")[0].innerText = farmers.length;
+            document.querySelectorAll(".card h2")[1].innerText = farmers.reduce((a, b) => a + Number(b.quantity || 0), 0) + " Tons";
+            document.querySelectorAll(".card h2")[2].innerText = slots.filter(s => s.payment !== "Paid").length;
+        }
+
+        // INIT
+        window.onload = function () {
+            renderFarmers();
+            renderSlots();
+            checkPayment(); // ✅ important fix
+            updateDashboard();
+        }
+
+        // CHART
+        new Chart(document.getElementById("wheatChart"), {
+            type: "bar",
+            data: { labels: ["Mon", "Tue"], datasets: [{ data: [10, 20] }] }
         });
-
-
-        // Load existing data on refresh
-        renderFarmers();
-        renderSlots();
-        updateDashboard();
 
     </script>
 
